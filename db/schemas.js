@@ -17,11 +17,18 @@ const actionSchema = new Schema ({
 })
 
 const boardSchema = new Schema ({
+    name: {
+        type: String, 
+        require: true
+    },
     toDO : [actionSchema],
     buffer: [actionSchema],
     working: [actionSchema], 
     done: [actionSchema],
-    users: [ObjectId],
+    users: {
+        type: [ObjectId],
+        validate: v => Array.isArray(v) && v.length > 0,
+    }
 }, {
     versionKey: false
 })
@@ -35,8 +42,7 @@ const userSchema = new Schema({
     password: {
         type: String, 
         require: true
-    },
-    boards: [ObjectId]
+    }
 }, {
     versionKey: false
 })

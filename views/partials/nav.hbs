@@ -18,7 +18,7 @@
             </a>
         </div>
         <div class="menu__logged">
-            <a id="userLink">
+            <a href="/">
                 <button class="btn menu__logged__btn" id="user">Twoje konto</button>
             </a>
             <a>
@@ -29,7 +29,6 @@
              dataFetch("/get_user")
                 .then(data => {
                     //display
-                    document.getElementById('userLink').href = '/user/' + data[0]._id;
                     document.getElementsByClassName('menu__logged__btn')[0].style.display = 'inline';
                     document.getElementsByClassName('menu__logged__btn')[1].style.display = 'inline';
 

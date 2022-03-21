@@ -47,7 +47,7 @@ login = async (req, res) => {
             maxAge: 15 * 60 * 1000  // 15 min
         })
 
-        res.cookie("username", req.user.username, {
+        res.cookie("userInfo", {"username": req.user.username, "userId": req.user._id}, {
             httpOnly: true,
             maxAge: 15 * 60 * 1000  // 15 min
         })
@@ -105,10 +105,10 @@ validateRegistration = data => {
 getUser = async (req, res) => {
     try{
         res.status(202).send(JSON.stringify(
-            await User.find({username: req.cookies.username}).lean()
+            await User.find({username: req.cookies.userInfo.username}).lean()
         ))
     } catch(err){
-        res.sendStatus(500)
+        //res.sendStatus(500)
     }
 }
 

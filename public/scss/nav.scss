@@ -19,6 +19,7 @@ $font: 'Bahnschrift', sans-serif;
     height: 10vh;
     width: 100%;
     display: grid;
+    grid-template-rows: 10vh;
     grid-template-columns: 1fr 3fr 1fr;
 
     &>*{

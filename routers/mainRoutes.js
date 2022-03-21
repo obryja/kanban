@@ -20,15 +20,11 @@ const tokenServices = require('../services/tokenServices')
 
 /********************* GET *********************/
 
-router.get('/', (req, res) => {
-    res.render('index', {title: 'Kanban'})
+router.get('/', tokenServices.checkLogged, (req, res) => {
+    res.render('user', {title: 'Kanban'})
 })
 
-router.get('/user/:userId', (req, res) => {
-    res.render('user', {title: 'User', userId: req.params.userId})
-})
-
-router.get('/board/:boardId', (req, res) => {
+router.get('/board/:boardId', tokenServices.checkLogged, (req, res) => {
     res.render('board', {title: 'Board', boardId: req.params.boardId})
 })
 

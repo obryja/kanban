@@ -82,7 +82,7 @@ deleteToken = async (req, res) => {
             maxAge: -1
         })
 
-        res.cookie('username', "", {
+        res.cookie("userInfo", "", {
             httpOnly: true,
             maxAge: -1
         })
