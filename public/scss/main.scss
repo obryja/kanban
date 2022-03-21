@@ -1,0 +1,74 @@
+@import url('http://fonts.cdnfonts.com/css/bahnschrift');
+
+$background: #FFFFFC;
+$second: #A0C4FF;
+$green: #CAFFBF;
+$yellow: #FDFFB6;
+$orange: #FFD6A5;
+$red: #FFADAD;
+$pink: #FFC6FF;
+$violet: #BDB2FF;
+$font: 'Bahnschrift', sans-serif;
+$black: black;
+$white: white;
+
+body{
+    background-color: $background;
+    color: $black;
+    font-family: $font;
+    padding: 0 15vw;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1vw;
+}
+
+.stage{
+    width: calc(65vw/4);
+    text-align: center;
+    background-color: $white;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 30px;
+
+
+    &__name{
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+
+    &__list{
+        padding: 1vh 1vw;
+
+        &__item{
+            border-radius: 30px;
+            box-shadow: 1px 1px 3px black;
+
+            p{
+                padding: 1vh 1vw;
+                font-size: 1.25em;
+            }
+            
+            &--red{
+                background-color: $red;
+            }
+
+            &--orange{
+                background-color: $orange;
+            }
+
+            &--yellow{
+                background-color: $yellow;
+            }
+
+            &--green{
+                background-color: $green;
+            }
+
+            &--pink{
+            background-color: $pink;}
+        }
+    }
+}
