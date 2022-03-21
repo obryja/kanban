@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head}}
+</head>
+<body>
+    {{> nav}}
+    <div class="main">
+        <h1 id="welcome"></h1>
+        <h1>Twoje tablice :</h1>
+    </div>
+    <script>
+         dataFetch("/get_user")
+            .then(data => {
+                document.getElementById('welcome').innerHTML = "Witaj <span class='username'>" + data[0].username + "</span> !";
+            });
+    </script>
+</body>
+</html>

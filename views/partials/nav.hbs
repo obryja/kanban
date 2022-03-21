@@ -1,0 +1,53 @@
+<head>
+    <script src="/js/logout.js" defer></script>
+</head>
+<body>
+    <div class="menu">
+        <div class="menu__logo">
+            <a href="/"><img srcset="../img/logo.png, img/logo.png" src="img/logo.png" alt="Kanban"></a>
+        </div>
+        <div class="menu__title">
+            <a href="/"><h1>KANBAN</h1></a>
+        </div>
+        <div class="menu__login">
+            <a href="/login">
+                <button class="btn menu__login__btn">Zaloguj się</button>
+            </a>
+            <a href="/register">
+                <button class="btn menu__login__btn">Zarejestruj się</button>
+            </a>
+        </div>
+        <div class="menu__logged">
+            <a id="userLink">
+                <button class="btn menu__logged__btn" id="user">Twoje konto</button>
+            </a>
+            <a>
+                <button class="btn menu__logged__btn" onclick="logout()">Wyloguj się</button>
+            </a>
+        </div>
+        <script>
+             dataFetch("/get_user")
+                .then(data => {
+                    //display
+                    document.getElementById('userLink').href = '/user/' + data[0]._id;
+                    document.getElementsByClassName('menu__logged__btn')[0].style.display = 'inline';
+                    document.getElementsByClassName('menu__logged__btn')[1].style.display = 'inline';
+
+                    //hid
+                    document.getElementsByClassName('menu__login')[0].style.order = '4';
+                    document.getElementsByClassName('menu__login__btn')[0].style.display = 'none';
+                    document.getElementsByClassName('menu__login__btn')[1].style.display = 'none';
+
+                }, reason => {
+                    //display
+                    document.getElementsByClassName('menu__login__btn')[0].style.display = 'inline';
+                    document.getElementsByClassName('menu__login__btn')[1].style.display = 'inline';
+
+                    //hid
+                    document.getElementsByClassName('menu__logged__btn')[0].style.display = 'none';
+                    document.getElementsByClassName('menu__logged__btn')[1].style.display = 'none';
+                });
+        </script>
+    </div>
+</body>
+</html>

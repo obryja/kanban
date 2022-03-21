@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head}}
+    <script src="/js/login.js" defer></script>
+</head>
+<body>
+    {{> nav}}
+    <div class="main">
+        <div class="login">
+            <h2>{{ title }}</h2>
+            <hr>
+            <form method="POST" class="login__form">
+                <div class="login__form__group">
+                    <label for="username">Nazwa użytkownika</label>
+                    <input type="text" name="username" class="input" id="username" required>
+                    <span class="login__form__group__error"></span>
+                </div>
+                <div class="login__form__group">
+                    <label for="password">Hasło</label>
+                    <input type="password" name="password" class="input" id="password" required>
+                    <span class="login__form__group__error"></span>
+                </div>
+                <input type="submit" value="Zaloguj się" class="btn sub">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

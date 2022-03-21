@@ -12,6 +12,8 @@ const actionSchema = new Schema ({
         type: String, 
         require: true
     },
+}, {
+    versionKey: false
 })
 
 const boardSchema = new Schema ({
@@ -20,10 +22,12 @@ const boardSchema = new Schema ({
     working: [actionSchema], 
     done: [actionSchema],
     users: [ObjectId],
+}, {
+    versionKey: false
 })
 
 const userSchema = new Schema({
-    email: {
+    username: {
         type: String,
         require: true,
         unique: true
