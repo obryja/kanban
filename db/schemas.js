@@ -21,7 +21,7 @@ const boardSchema = new Schema ({
         type: String, 
         require: true
     },
-    toDO : [actionSchema],
+    toDo : [actionSchema],
     buffer: [actionSchema],
     working: [actionSchema], 
     done: [actionSchema],

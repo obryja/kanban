@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken")
 generateAccessToken = (user) => {
     // set expiration date and user object
     return jwt.sign({
-        exp: Math.floor(Date.now()/1000) + 600, // 10 min expiration
+        exp: Math.floor(Date.now()/1000) + 3600, // 60 min expiration
         data: user}, 
         process.env.ACCESS_TOKEN_SECRET)
 }

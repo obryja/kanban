@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const services = require('../services/userServices')
 const tokenServices = require('../services/tokenServices')
+const BoardServices = require('../services/boardServices')
 
 /********************* POST *********************/
 /** req.body:
@@ -24,7 +25,7 @@ router.get('/', tokenServices.checkLogged, (req, res) => {
     res.render('user', {title: 'Kanban'})
 })
 
-router.get('/board/:boardId', tokenServices.checkLogged, (req, res) => {
+router.get('/board/:boardId', tokenServices.checkLogged, BoardServices.checkAccess, (req, res) => {
     res.render('board', {title: 'Board', boardId: req.params.boardId})
 })
 

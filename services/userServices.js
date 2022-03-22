@@ -44,12 +44,12 @@ login = async (req, res) => {
         // store refresh token and user data in cookies
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            maxAge: 15 * 60 * 1000  // 15 min
+            maxAge: 60 * 60 * 1000  // 60 min
         })
 
         res.cookie("userInfo", {"username": req.user.username, "userId": req.user._id}, {
             httpOnly: true,
-            maxAge: 15 * 60 * 1000  // 15 min
+            maxAge: 60 * 60 * 1000  // 60 min
         })
 
         // send access token to client
@@ -112,9 +112,23 @@ getUser = async (req, res) => {
     }
 }
 
+getUserById = async(req, res) => {
+    try{
+        if(!req.body.id)  return res.sendStatus(400)
+
+        res.status(202).send(JSON.stringify(
+            await User.findById(req.body.id).lean()
+        ))
+    } catch(err){
+        res.sendStatus(500)
+        console.log(err)
+    }
+}
+
 module.exports = {
     authenticateUser,
     login,
     register,
     getUser,
+    getUserById,
 }

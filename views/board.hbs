@@ -2,10 +2,30 @@
 <html lang="en">
 <head>
     {{> head}}
+    <link rel="stylesheet" href="/css/modal.css">
+    <script>
+        var boardId = "{{ boardId }}";
+    </script>
+    <script src="/js/board.js" defer></script>
 </head>
 <body>
     {{> nav}}
     <div class="main">
+        <div class="managment">
+            <div class="managment__item">
+                <div class="managment__item__img managment__item__img--add">
+                    <img src="/img/addUser.png" alt="Dodaj użytkowników" onclick="displayModal('add')">
+                </div>
+            </div>
+            <div class="managment__item">
+                <input type="text" name="name" class="input" id="name" onKeyUp="typewatch(function(){changeName();}, 1000 );">
+            </div>
+            <div class="managment__item">
+                <div class="managment__item__img managment__item__img--del">
+                    <img src="/img/delete.png" alt="Dodaj użytkowników" onclick="displayModal('delete')">
+                </div>
+            </div>
+        </div>
         <div class="board">
             <div class="board__stage">
                 <div class="board__stage__name">
@@ -50,6 +70,26 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal__content modal__content--delete">
+            <span onclick="hideModal()" class="close">×</span>
+            <h1>Czy na pewno chesz usunąć tablicę?</h1>
+            <input type="button" class="btn" value="Anuluj" onclick="hideModal()">
+            <input type="button" class="btn" value="Usuń" id="del" onclick="deleteBoard()">
+        </div>
+        <div class="modal__content modal__content--add">
+            <span onclick="hideModal()" class="close">×</span>
+            <h1>Użytkownicy z dostępem</h1>
+            <div class="modal__content__list" id="usersList">
+                
+            </div>
+            <hr>
+            <h1>Przyznaj dostęp użytkownikowi</h1>
+                <input type="text" name="username" id="username" class="input" required>
+                <input type="button" class="btn sub" value="Dodaj" onclick="addUser()" id="add"><br>
+                <p class="modal__content__form__error"></p>
         </div>
     </div>
 </body>
