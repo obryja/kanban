@@ -1,6 +1,10 @@
 var nameInput = document.getElementById('name');
 var boardId = boardId;
 var usersList = document.getElementById('usersList');
+var toDoList = document.getElementsByClassName('toDoList')[0];
+var bufferList = document.getElementsByClassName('bufferList')[0];
+var workingList = document.getElementsByClassName('workingList')[0];
+var doneList = document.getElementsByClassName('doneList')[0];
 
 /*************** display data ***************/
 
@@ -8,12 +12,27 @@ dataFetch('/get_board', {id: boardId})
     .then(data => {
        nameInput.value = data.name;
 
+       for(i = 0; i < data.toDo.length; i++){
+            toDoList.innerHTML += "<div class='board__stage__list__item " + data.toDo[i].difficulty + "' id='" + data.toDo[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('" + data.toDo[i]._id + "')\"><p>" + data.toDo[i].content + "</p></div>";
+        }
+        for(i = 0; i < data.buffer.length; i++){
+            bufferList.innerHTML += "<div class='board__stage__list__item " + data.buffer[i].difficulty + "' id='" + data.buffer[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('" + data.buffer[i]._id + "')\"><p>" + data.buffer[i].content + "</p></div>";
+        }
+        for(i = 0; i < data.working.length; i++){
+            workingList.innerHTML += "<div class='board__stage__list__item " + data.working[i].difficulty + "' id='" + data.working[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('" + data.working[i]._id + "')\"><p>" + data.working[i].content + "</p></div>";
+        }
+        for(i = 0; i < data.done.length; i++){
+            doneList.innerHTML += "<div class='board__stage__list__item " + data.done[i].difficulty + "' id='" + data.done[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('" + data.done[i]._id + "')\"><p>" + data.done[i].content + "</p></div>";
+        }
+
        for(i = 0; i < data.users.length; i++){
             dataFetch('/get_user_by_id', {id: data.users[i]})
                 .then(data => {
                     usersList.innerHTML += "<div class='modal__content__list__item'><h3>" + data.username + "</h3></div>";
-                })
-    }
+                });
+
+        
+        }
     });
 
 
@@ -53,6 +72,8 @@ function hideModal(){
     modal.style.display = "none";
     modalContent[0].style.display = "none";
     modalContent[1].style.display = "none";
+    modalContent[2].style.display = "none";
+    modalContent[3].style.display = "none";
 }
 
 window.onclick = function(event) {
@@ -93,5 +114,59 @@ function changeOnAdd(){
                 })
     }
     });
+
+}
+
+/**************** add tasks ****************/
+
+function changeId(id){
+    document.getElementsByClassName('changeId')[0].id = id;
+}
+
+function addTask(){
+    var content = document.getElementById('content').value;
+    var difficulty = document.getElementById('difficulty').value;
+    var type = document.getElementsByClassName('changeId')[0].id;
+
+    if(type == 'toDo'){
+        dataFetch('/update_board', {id: boardId, toDo: {
+            "content": content,
+            "difficulty": difficulty,
+        }});
+        location.reload();
+    }
+    if(type == 'buffer'){
+        dataFetch('/update_board', {id: boardId, buffer: {
+            "content": content,
+            "difficulty": difficulty,
+        }});
+        location.reload();
+    }
+    if(type == 'working'){
+        dataFetch('/update_board', {id: boardId, working: {
+            "content": content,
+            "difficulty": difficulty,
+        }});
+        location.reload();
+    }
+    if(type == 'done'){
+        dataFetch('/update_board', {id: boardId, done: {
+            "content": content,
+            "difficulty": difficulty,
+        }});
+        location.reload();
+    }
+}
+
+/**************** change tasks ****************/
+
+function changeTaskId(id){
+    document.getElementsByClassName('changeTaskId')[0].id = id;
+}
+
+
+function changeTask(){
+    var content = document.getElementById('contentChange');
+    var difficulty = document.getElementById('difficultyChange');
 
 }

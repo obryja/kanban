@@ -62,10 +62,10 @@ updateBoard = async (req, res) => {
         // if one of the given data is falsy, corresponding value won't change
         board.name = req.body.name || board.name
         if(req.body.users)    board.users.addToSet(req.body.users)
-        if(req.body.toDo)    board.toDo.push(req.body.toDo)
-        if(req.body.buffer)    board.buffer.push(req.body.buffer )
-        if(req.body.working)    board.working.push(req.body.working)
-        if(req.body.done)    board.done.push(req.body.done)
+        if(req.body.toDo && req.body.toDo.content && req.body.toDo.difficulty)   board.toDo.push(req.body.toDo)
+        if(req.body.buffer && req.body.buffer.content && req.body.buffer.difficulty)    board.buffer.push(req.body.buffer )
+        if(req.body.working && req.body.working.content && req.body.working.difficulty)    board.working.push(req.body.working)
+        if(req.body.done && req.body.done.content && req.body.done.difficulty)    board.done.push(req.body.done)
 
         await board.save()
 

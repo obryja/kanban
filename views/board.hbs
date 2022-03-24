@@ -31,12 +31,9 @@
                 <div class="board__stage__name">
                     <h3>To do</h3>
                 </div>
-                <div class="board__stage__list">
-                    <div class="board__stage__list__item board__stage__list__item--green">
-                        <p>1</p>
-                    </div>
-                    <div class="board__stage__list__item board__stage__list__item--pink">
-                        <p>2</p>
+                <div class="board__stage__list toDoList">
+                    <div class="board__stage__list__item board__stage__list__item--add">
+                        <input type="button" class="btn" value="Dodaj zadanie" onclick="displayModal('addTask');changeId('toDo')">
                     </div>
                 </div>
             </div>
@@ -44,9 +41,9 @@
                 <div class="board__stage__name">
                     <h3>Buffer</h3>
                 </div>
-                <div class="board__stage__list">
-                    <div class="board__stage__list__item board__stage__list__item--yellow">
-                        <p>1</p>
+                <div class="board__stage__list bufferList">
+                    <div class="board__stage__list__item board__stage__list__item--add">
+                        <input type="button" class="btn" value="Dodaj zadanie" onclick="displayModal('addTask');changeId('buffer')">
                     </div>
                 </div>
             </div>
@@ -54,9 +51,9 @@
                 <div class="board__stage__name">
                     <h3>Working</h3>
                 </div>
-                <div class="board__stage__list">
-                    <div class="board__stage__list__item board__stage__list__item--orange">
-                        <p>1</p>
+                <div class="board__stage__list workingList">
+                    <div class="board__stage__list__item board__stage__list__item--add">
+                        <input type="button" class="btn" value="Dodaj zadanie" onclick="displayModal('addTask');changeId('working')">
                     </div>
                 </div>
             </div>
@@ -64,9 +61,9 @@
                 <div class="board__stage__name">
                     <h3>Done</h3>
                 </div>
-                <div class="board__stage__list">
-                    <div class="board__stage__list__item board__stage__list__item--red">
-                        <p>1</p>
+                <div class="board__stage__list doneList">
+                    <div class="board__stage__list__item board__stage__list__item--add">
+                        <input type="button" class="btn" value="Dodaj zadanie" onclick="displayModal('addTask');changeId('done')">
                     </div>
                 </div>
             </div>
@@ -77,7 +74,7 @@
             <span onclick="hideModal()" class="close">×</span>
             <h1>Czy na pewno chesz usunąć tablicę?</h1>
             <input type="button" class="btn" value="Anuluj" onclick="hideModal()">
-            <input type="button" class="btn" value="Usuń" id="del" onclick="deleteBoard()">
+            <input type="button" class="btn del" value="Usuń" onclick="deleteBoard()">
         </div>
         <div class="modal__content modal__content--add">
             <span onclick="hideModal()" class="close">×</span>
@@ -87,9 +84,37 @@
             </div>
             <hr>
             <h1>Przyznaj dostęp użytkownikowi</h1>
-                <input type="text" name="username" id="username" class="input" required>
+                <input type="text" name="username" id="username" class="input" placeholder="Nazwa użytkownika" required>
                 <input type="button" class="btn sub" value="Dodaj" onclick="addUser()" id="add"><br>
                 <p class="modal__content__form__error"></p>
+        </div>
+        <div class="modal__content modal__content--addTask">
+             <span onclick="hideModal()" class="close">×</span>
+            <input type="text" name="content"  class="input" id="content" placeholder="Treść">
+                <select name="difficulty" id="difficulty" class="input">
+                    <option disabled selected value="second">-- Wybierz poziom trudności --</option>
+                    <option value="easy" class="easy">Łatwy</option>
+                    <option value="moderate" class="moderate">Umiarkowany</option>
+                    <option value="hard" class="hard">Trudny</option>
+                    <option value="veryHard" class="veryHard">Bardzo trudny</option>
+                    <option value="other" class="other">Inne</option>
+                </select>
+                <input type="button" class="btn changeId" value="Dodaj" onclick="addTask()">
+        </div>
+        <div class="modal__content modal__content--changeTask">
+            <span onclick="hideModal()" class="close">×</span>
+            <input type="text" name="contentChange"  class="input" id="contentChange" placeholder="Treść">
+                <select name="difficultyChange" id="difficultyChange" class="input">
+                    <option disabled selected value="second">-- Wybierz poziom trudności --</option>
+                    <option value="easy" class="easy">Łatwy</option>
+                    <option value="moderate" class="moderate">Umiarkowany</option>
+                    <option value="hard" class="hard">Trudny</option>
+                    <option value="veryHard" class="veryHard">Bardzo trudny</option>
+                    <option value="other" class="other">Inne</option>
+                </select>
+                <input type="button" class="btn changeTaskId" value="Zaktualizuj" onclick="changeTask()">
+                <hr>
+                <input type="button" class="btn del" value="Usuń" onclick="deleteBoard()">
         </div>
     </div>
 </body>

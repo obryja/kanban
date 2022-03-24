@@ -59,6 +59,30 @@ body{
     }
 }
 
+.veryHard{
+    background-color: $red;
+}
+
+.hard{
+    background-color: $orange;
+}
+
+.moderate{
+    background-color: $yellow;
+}
+
+.easy{
+    background-color: $green;
+}
+
+.other{
+    background-color: $pink;
+}
+
+.second{
+    background-color: $second;
+}
+
 /********** login & register **********/
 
 .login{
@@ -143,6 +167,7 @@ body{
             justify-content: center;
             align-items: center;
             transition-duration: 0.35s;
+            overflow: auto;
 
 
             h1{
@@ -266,25 +291,14 @@ body{
                     padding: 1vh 1vw;
                     font-size: 1.25em;
                 }
-                
-                &--red{
-                    background-color: $red;
+
+                &--add{
+                    input{
+                        width: 100%;
+                        border-radius: 30px;
+                        border: 0;
+                    }
                 }
-    
-                &--orange{
-                    background-color: $orange;
-                }
-    
-                &--yellow{
-                    background-color: $yellow;
-                }
-    
-                &--green{
-                    background-color: $green;
-                }
-    
-                &--pink{
-                background-color: $pink;}
             }
         }
     }
