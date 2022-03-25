@@ -24,12 +24,12 @@ $font: 'Bahnschrift', sans-serif;
     height: 100%;
     overflow: auto;
     background-color: $second + D9;
-    padding-top: 15vh;
+    padding-top: 10vh;
 
     &__content{
         display: none;
         background-color: $white;
-        margin: 5% auto 15% auto;
+        margin: 5% auto 10% auto;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
         width: calc(68% - 10vw);
         padding: 7vh 5vw;
@@ -65,12 +65,26 @@ $font: 'Bahnschrift', sans-serif;
             }
         }
 
-        #add{
+        .add{
             background-color: $second;
 
             &:hover{
                 transform: 0.1s;
                 background-color: $secondHover;
+            }
+        }
+
+        &__flex{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            input[type=button], select{
+                width: 50%;
+            }
+
+            input[type=text]{
+                width: calc(50% - 2vw);
             }
         }
 
@@ -98,6 +112,19 @@ $font: 'Bahnschrift', sans-serif;
                     margin: 0;
                 }
             }
+        }
+    }
+}
+
+/*************** phone ***************/
+@media only screen and (max-width: 800px) {
+    .modal__content__flex{
+        input[type=button], select{
+            width: 90%;
+        }
+
+        input[type=text]{
+            width: calc(90% - 2vw);
         }
     }
 }

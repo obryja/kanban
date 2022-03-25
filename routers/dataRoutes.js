@@ -5,7 +5,7 @@ const boardServices = require('../services/boardServices')
 /******** returns user from cookies ********/
 router.post('/get_user', userServices.getUser)
 
-/**************** get board ****************
+/**************** get user ****************
  * @id : id
  * ****************************************/
  router.post('/get_user_by_id', userServices.getUserById)

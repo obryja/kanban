@@ -30,6 +30,8 @@ getBoardsOfUser = async(req, res) => {
     }
 }
 
+/************** add board **************/
+
 addBoard = async(req, res) => {
     try{
         if(!req.body.name || !req.cookies.userInfo.userId){
