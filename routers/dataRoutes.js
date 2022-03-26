@@ -51,4 +51,10 @@ router.post('/delete_board', boardServices.deleteBoard)
  * *********************************************/
  router.post('/update_task', boardServices.updateTask)
 
+ /*************** Updating board ***************
+ * @type : toDo / buffer / working / done
+ * @taskId : taskId
+ * *********************************************/
+  router.post('/delete_task', boardServices.deleteTask)
+
 module.exports = router

@@ -13,16 +13,16 @@ dataFetch('/get_board', {id: boardId})
        nameInput.value = data.name;
 
        for(i = 0; i < data.toDo.length; i++){
-            toDoList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.toDo[i].difficulty + "' id='toDo;" + i + ";" + data.toDo[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('toDo;" + i + ";" + data.toDo[i]._id + "'); getTaskById()\"><p>" + data.toDo[i].content + "</p></div>";
+            toDoList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.toDo[i].difficulty + "' id='toDo;" + i + ";" + data.toDo[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('toDo;" + i + ";" + data.toDo[i]._id + "'); getTaskById();deleteTaskId('toDo;" + i + ";" + data.toDo[i]._id + "')\"><p>" + data.toDo[i].content + "</p></div>";
         }
         for(i = 0; i < data.buffer.length; i++){
-            bufferList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.buffer[i].difficulty + "' id='buffer;" + i + ";" + data.buffer[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('buffer;" + i + ";" + data.buffer[i]._id + "'); getTaskById()\"><p>" + data.buffer[i].content + "</p></div>";
+            bufferList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.buffer[i].difficulty + "' id='buffer;" + i + ";" + data.buffer[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('buffer;" + i + ";" + data.buffer[i]._id + "'); getTaskById();deleteTaskId('buffer;" + i + ";" + data.buffer[i]._id + "')\"><p>" + data.buffer[i].content + "</p></div>";
         }
         for(i = 0; i < data.working.length; i++){
-            workingList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.working[i].difficulty + "' id='working;" + i + ";" + data.working[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('working;" + i + ";" + data.working[i]._id + "'); getTaskById()\"><p>" + data.working[i].content + "</p></div>";
+            workingList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.working[i].difficulty + "' id='working;" + i + ";" + data.working[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('working;" + i + ";" + data.working[i]._id + "'); getTaskById();deleteTaskId('working;" + i + ";" + data.working[i]._id + "')\"><p>" + data.working[i].content + "</p></div>";
         }
         for(i = 0; i < data.done.length; i++){
-            doneList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.done[i].difficulty + "' id='done;" + i + ";" + data.done[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('done;" + i + ";" + data.done[i]._id + "'); getTaskById()\"><p>" + data.done[i].content + "</p></div>";
+            doneList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.done[i].difficulty + "' id='done;" + i + ";" + data.done[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('done;" + i + ";" + data.done[i]._id + "'); getTaskById();deleteTaskId('done;" + i + ";" + data.done[i]._id + "')\"><p>" + data.done[i].content + "</p></div>";
         }
 
        for(i = 0; i < data.users.length; i++){
@@ -198,5 +198,24 @@ updateTask.addEventListener("click", e => {
     var difficulty = document.getElementById('difficultyChange').value;
 
     dataFetch('/update_task', {taskId: taskId, type: stage, content: content, difficulty: difficulty});
+    location.reload();
+})
+
+/**************** delete tasks ****************/
+
+function deleteTaskId(id){
+    document.getElementsByClassName('deleteTaskId')[0].id = id;
+}
+
+var deleteTask = document.getElementsByClassName('deleteTaskId')[0];
+
+deleteTask.addEventListener("click", e => {
+    e.preventDefault();
+    let id = document.getElementsByClassName('changeTaskId')[0].id;
+    let toSplit = id.split(";")
+    var stage = toSplit[0];
+    var taskId = toSplit[2];
+
+    dataFetch('/delete_task', {taskId: taskId, type: stage});
     location.reload();
 })

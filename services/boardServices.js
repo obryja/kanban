@@ -135,6 +135,45 @@ updateTask = async (req, res) => {
     }
 }
 
+/************** delete task **************/
+
+deleteTask = async (req, res) => {
+    try {
+        if(!req.body.type || !req.body.taskId)    return res.sendStatus(403)
+
+        // if one of the given data is falsy, corresponding value won't change
+        /* if(req.body.type)    board.users.addToSet(req.body.users) */
+        if(req.body.type == 'toDo'){
+            const board = await Board.updateOne(
+                {"toDo._id": req.body.taskId},
+                {$pull : {toDo: {_id: req.body.taskId}}}
+            )
+        }   
+        if(req.body.type == 'buffer'){
+            const board = await Board.updateOne(
+                {"buffer._id": req.body.taskId},
+                {$pull : {buffer: {_id: req.body.taskId}}}
+            )
+        }  
+        if(req.body.type == 'working'){
+            const board = await Board.updateOne(
+                {"working._id": req.body.taskId},
+                {$pull : {working: {_id: req.body.taskId}}}
+            )
+        }  
+        if(req.body.type == 'done'){
+            const board = await Board.updateOne(
+                {"done._id": req.body.taskId},
+                {$pull : {done: {_id: req.body.taskId}}}
+            )
+        }  
+
+        //res.status(202).send(JSON.stringify(board))
+    } catch(err) {
+        res.sendStatus(500)
+        console.log(err) 
+    }
+}
 
 /*********** add user to board ***********/
 
@@ -188,6 +227,7 @@ module.exports = {
     updateBoard,
     deleteBoard,
     updateTask,
+    deleteTask,
     checkAccess,
     addUserToBoard,
 }
