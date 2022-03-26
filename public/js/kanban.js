@@ -1,5 +1,5 @@
 var boardId = boardId;
-var id, content, difficulty, fromWhere;
+var id, content, difficulty, fromWhere, taskId;
 
 document.addEventListener("dragstart", e => {
     e.dataTransfer.setData("Text", e.target.id);
@@ -9,18 +9,18 @@ document.addEventListener("dragstart", e => {
     fromWhere = e.target.parentNode.id;
     let toSplit = id.split(";")
     var stage = toSplit[0];
-    var order = toSplit[1];
-    var taskId = toSplit[2];
+    taskId = toSplit[2];
 
-    dataFetch('/get_board', {id: boardId})
+    console.log(stage)
+
+    dataFetch('/get_task', {id: taskId, type: stage})
         .then(data => {
             const type = stage;
-            const i = order;
 
-            if(type == 'toDo')  content = data.toDo[i].content, difficulty = data.toDo[i].difficulty
-            if(type == 'buffer')  content = data.buffer[i].content, difficulty = data.buffer[i].difficulty
-            if(type == 'working')  content = data.working[i].content, difficulty = data.working[i].difficulty
-            if(type == 'done')  content = data.done[i].content, difficulty = data.done[i].difficulty
+            if(type == 'toDo')  content = data.toDo[0].content, difficulty = data.toDo[0].difficulty
+            if(type == 'buffer')  content = data.buffer[0].content, difficulty = data.buffer[0].difficulty
+            if(type == 'working')  content = data.working[0].content, difficulty = data.working[0].difficulty
+            if(type == 'done')  content = data.done[0].content, difficulty = data.done[0].difficulty
         })  
 
     dataFetch('/delete_task', {taskId: taskId, type: stage});
@@ -59,59 +59,39 @@ document.addEventListener("drop", e => {
         //add to db 
 
         var type = e.target.id;
-
-        if(type == 'toDo'){
-            dataFetch('/update_board', {id: boardId, toDo: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-        if(type == 'buffer'){
-            dataFetch('/update_board', {id: boardId, buffer: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-        if(type == 'working'){
-            dataFetch('/update_board', {id: boardId, working: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-        if(type == 'done'){
-            dataFetch('/update_board', {id: boardId, done: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-    } else{
+    } 
+    else{
         //add to db in case it doesnt drop in dropzone
-
         var type = fromWhere;
-
-        if(type == 'toDo'){
-            dataFetch('/update_board', {id: boardId, toDo: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-        if(type == 'buffer'){
-            dataFetch('/update_board', {id: boardId, buffer: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-        if(type == 'working'){
-            dataFetch('/update_board', {id: boardId, working: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
-        if(type == 'done'){
-            dataFetch('/update_board', {id: boardId, done: {
-                "content": content,
-                "difficulty": difficulty,
-            }});
-        }
     }
+    if(type == 'toDo'){
+        dataFetch('/update_board', {id: boardId, toDo: {
+            "content": content,
+            "difficulty": difficulty,
+            "_id": taskId,
+        }});
+    }
+    if(type == 'buffer'){
+        dataFetch('/update_board', {id: boardId, buffer: {
+            "content": content,
+            "difficulty": difficulty,
+            "_id": taskId,
+        }});
+    }
+    if(type == 'working'){
+        dataFetch('/update_board', {id: boardId, working: {
+            "content": content,
+            "difficulty": difficulty,
+            "_id": taskId,
+        }});
+    }
+    if(type == 'done'){
+        dataFetch('/update_board', {id: boardId, done: {
+            "content": content,
+            "difficulty": difficulty,
+            "_id": taskId,
+        }});
+    }
+
+    document.getElementById(id).id = type + ";" + ";" + taskId;
 })

@@ -95,6 +95,73 @@ deleteBoard = async (req, res) => {
     }
 }
 
+/************** get task **************/
+
+getTask = async(req, res) => {
+    try{
+        if(!req.body.id || !req.body.type)  return res.sendStatus(400)
+
+        if(req.body.type == 'toDo'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({"toDo._id": req.body.id}, 'toDo.$').lean()
+            ))
+        }   
+        if(req.body.type == 'buffer'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({"buffer._id": req.body.id}, 'buffer.$').lean()
+            ))
+        }  
+        if(req.body.type == 'working'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({"working._id": req.body.id}, 'working.$').lean()
+            ))
+        }  
+
+        if(req.body.type == 'done'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({"done._id": req.body.id}, 'done.$').lean()
+            ))
+        }  
+    } catch(err){
+        res.sendStatus(500)
+        console.log(err)
+    }
+}
+
+/************ get last task ************/
+
+getLastTask = async(req, res) => {
+    try{
+        if(!req.body.id || !req.body.type)  return res.sendStatus(400)
+
+        if(req.body.type == 'toDo'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({_id: req.body.id}, {toDo: {$slice: -1}, users: 0, name: 0, _id: 0, buffer: 0, working: 0, done: 0}).lean()
+            ))
+        }   
+        if(req.body.type == 'buffer'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({_id: req.body.id}, {buffer: {$slice: -1}, users: 0, name: 0, _id: 0, toDo: 0, working: 0, done: 0}).lean()
+            ))
+        }  
+        if(req.body.type == 'working'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({_id: req.body.id}, {working: {$slice: -1}, users: 0, name: 0, _id: 0, toDo: 0, buffer: 0, done: 0}).lean()
+            ))
+        }  
+
+        if(req.body.type == 'done'){
+            res.status(202).send(JSON.stringify(
+                await Board.findOne({_id: req.body.id}, {done: {$slice: -1}, users: 0, name: 0, _id: 0, toDo: 0, buffer: 0, working: 0}).lean()
+            ))
+        }  
+    
+    } catch(err){
+        res.sendStatus(500)
+        console.log(err)
+    }
+}
+
 /************* update task *************/
 
 updateTask = async (req, res) => {
@@ -229,6 +296,8 @@ module.exports = {
     addBoard,
     updateBoard,
     deleteBoard,
+    getTask,
+    getLastTask,
     updateTask,
     deleteTask,
     checkAccess,

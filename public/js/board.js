@@ -9,32 +9,36 @@ var doneList = document.getElementsByClassName('doneList')[0];
 /*************** display data ***************/
 
 dataFetch('/get_board', {id: boardId})
-    .then(data => {
-       nameInput.value = data.name;
+.then(data => {
+    nameInput.value = data.name;
 
-       for(i = 0; i < data.toDo.length; i++){
-            toDoList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.toDo[i].difficulty + "' id='toDo;" + i + ";" + data.toDo[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('toDo;" + i + ";" + data.toDo[i]._id + "'); getTaskById();deleteTaskId('toDo;" + i + ";" + data.toDo[i]._id + "')\"><p>" + data.toDo[i].content + "</p></div>";
-        }
-        for(i = 0; i < data.buffer.length; i++){
-            bufferList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.buffer[i].difficulty + "' id='buffer;" + i + ";" + data.buffer[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('buffer;" + i + ";" + data.buffer[i]._id + "'); getTaskById();deleteTaskId('buffer;" + i + ";" + data.buffer[i]._id + "')\"><p>" + data.buffer[i].content + "</p></div>";
-        }
-        for(i = 0; i < data.working.length; i++){
-            workingList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.working[i].difficulty + "' id='working;" + i + ";" + data.working[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('working;" + i + ";" + data.working[i]._id + "'); getTaskById();deleteTaskId('working;" + i + ";" + data.working[i]._id + "')\"><p>" + data.working[i].content + "</p></div>";
-        }
-        for(i = 0; i < data.done.length; i++){
-            doneList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.done[i].difficulty + "' id='done;" + i + ";" + data.done[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('done;" + i + ";" + data.done[i]._id + "'); getTaskById();deleteTaskId('done;" + i + ";" + data.done[i]._id + "')\"><p>" + data.done[i].content + "</p></div>";
-        }
+    toDoList.innerHTML = "";
+    bufferList .innerHTML = "";
+    workingList.innerHTML = "";
+    doneList.innerHTML = "";
 
-       for(i = 0; i < data.users.length; i++){
-            dataFetch('/get_user_by_id', {id: data.users[i]})
-                .then(data => {
-                    usersList.innerHTML += "<div class='modal__content__list__item'><h3>" + data.username + "</h3></div>";
-                });
+    for(i = 0; i < data.toDo.length; i++){
+        toDoList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.toDo[i].difficulty + "' id='toDo;" + i + ";" + data.toDo[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId(this.id); getTaskById();deleteTaskId('toDo;" + i + ";" + data.toDo[i]._id + "')\"><p>" + data.toDo[i].content + "</p></div>";
+    }
+    for(i = 0; i < data.buffer.length; i++){
+        bufferList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.buffer[i].difficulty + "' id='buffer;" + i + ";" + data.buffer[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId(this.id); getTaskById();deleteTaskId('buffer;" + i + ";" + data.buffer[i]._id + "')\"><p>" + data.buffer[i].content + "</p></div>";
+    }
+    for(i = 0; i < data.working.length; i++){
+        workingList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.working[i].difficulty + "' id='working;" + i + ";" + data.working[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId(this.id); getTaskById();deleteTaskId('working;" + i + ";" + data.working[i]._id + "')\"><p>" + data.working[i].content + "</p></div>";
+    }
+    for(i = 0; i < data.done.length; i++){
+        doneList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.done[i].difficulty + "' id='done;" + i + ";" + data.done[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId(this.id); getTaskById();deleteTaskId('done;" + i + ";" + data.done[i]._id + "')\"><p>" + data.done[i].content + "</p></div>";
+    }
 
-        
-        }
-    });
+    for(i = 0; i < data.users.length; i++){
+        dataFetch('/get_user_by_id', {id: data.users[i]})
+            .then(data => {
+                usersList.innerHTML += "<div class='modal__content__list__item'><h3>" + data.username + "</h3></div>";
+            });
 
+    
+    }
+});
 
 /*************** change name ***************/
 
@@ -170,20 +174,19 @@ function getTaskById(){
     let id = document.getElementsByClassName('changeTaskId')[0].id;
     let toSplit = id.split(";")
     var stage = toSplit[0];
-    var order = toSplit[1];
+    var taskId = toSplit[2];
     var content = document.getElementById('contentChange');
     var difficulty = document.getElementById('difficultyChange');
+    console.log(stage)
 
-    dataFetch('/get_board', {id: boardId})
+    dataFetch('/get_task', {id: taskId, type: stage})
         .then(data => {
-            const type = stage;
-            const i = order;
-
-            if(type == 'toDo')  content.value = data.toDo[i].content, difficulty.value = data.toDo[i].difficulty, difficulty.className = data.toDo[i].difficulty
-            if(type == 'buffer')  content.value = data.buffer[i].content, difficulty.value = data.buffer[i].difficulty, difficulty.className = data.buffer[i].difficulty
-            if(type == 'working')  content.value = data.working[i].content, difficulty.value = data.working[i].difficulty, difficulty.className = data.working[i].difficulty
-            if(type == 'done')  content.value = data.done[i].content, difficulty.value = data.done[i].difficulty, difficulty.className = data.done[i].difficulty
-        })  
+            console.log(data)
+            
+            content.value = Object.values(data)[1][0].content
+            difficulty.value = Object.values(data)[1][0].difficulty
+            difficulty.className = Object.values(data)[1][0].difficulty
+        })
 }
 
 var updateTask = document.getElementsByClassName('changeTaskId')[0];

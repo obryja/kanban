@@ -43,7 +43,19 @@ router.post('/add_board', boardServices.addBoard)
 /********** delete board by given @id **********/
 router.post('/delete_board', boardServices.deleteBoard)
 
-/*************** Updating board ***************
+/**************** get task ****************
+ * @id : taskId
+ * @type : toDo / buffer / working / done
+ * ****************************************/
+ router.post('/get_task', boardServices.getTask)
+
+ /************** get last task ************
+  * @id : "{{ boardId }}"
+ * @type : toDo / buffer / working / done
+ * ****************************************/
+  router.post('/get_last_task', boardServices.getLastTask)
+
+/*************** Updating task *****************
  * @type : toDo / buffer / working / done
  * @taskId : taskId
  * @content : content of task
@@ -51,7 +63,7 @@ router.post('/delete_board', boardServices.deleteBoard)
  * *********************************************/
  router.post('/update_task', boardServices.updateTask)
 
- /*************** Updating board ***************
+ /*************** deleting task *****************
  * @type : toDo / buffer / working / done / users
  * @taskId : taskId
  * *********************************************/
