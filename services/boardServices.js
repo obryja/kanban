@@ -95,6 +95,47 @@ deleteBoard = async (req, res) => {
     }
 }
 
+/************* update task *************/
+
+updateTask = async (req, res) => {
+    try {
+        if(!req.body.type || !req.body.taskId || !req.body.content || !req.body.difficulty)    return res.sendStatus(403)
+
+        // if one of the given data is falsy, corresponding value won't change
+        /* if(req.body.type)    board.users.addToSet(req.body.users) */
+        if(req.body.type == 'toDo'){
+            const board = await Board.updateOne(
+                {"toDo._id": req.body.taskId},
+                {$set : {"toDo.$.content": req.body.content, "toDo.$.difficulty": req.body.difficulty}}
+            )
+        }   
+        if(req.body.type == 'buffer'){
+            const board = await Board.updateOne(
+                {"buffer._id": req.body.taskId},
+                {$set : {"buffer.$.content": req.body.content, "buffer.$.difficulty": req.body.difficulty}}
+            )
+        }  
+        if(req.body.type == 'working'){
+            const board = await Board.updateOne(
+                {"working._id": req.body.taskId},
+                {$set : {"working.$.content": req.body.content, "working.$.difficulty": req.body.difficulty}}
+            )
+        }  
+        if(req.body.type == 'done'){
+            const board = await Board.updateOne(
+                {"done._id": req.body.taskId},
+                {$set : {"done.$.content": req.body.content, "done.$.difficulty": req.body.difficulty}}
+            )
+        }  
+
+        //res.status(202).send(JSON.stringify(board))
+    } catch(err) {
+        res.sendStatus(500)
+        console.log(err) 
+    }
+}
+
+
 /*********** add user to board ***********/
 
 addUserToBoard = async (req, res) => {
@@ -146,6 +187,7 @@ module.exports = {
     addBoard,
     updateBoard,
     deleteBoard,
+    updateTask,
     checkAccess,
     addUserToBoard,
 }

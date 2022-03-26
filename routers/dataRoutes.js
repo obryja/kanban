@@ -43,4 +43,12 @@ router.post('/add_board', boardServices.addBoard)
 /********** delete board by given @id **********/
 router.post('/delete_board', boardServices.deleteBoard)
 
+/*************** Updating board ***************
+ * @type : toDo / buffer / working / done
+ * @taskId : taskId
+ * @content : content of task
+ * @difficulty : difficulty if task
+ * *********************************************/
+ router.post('/update_task', boardServices.updateTask)
+
 module.exports = router

@@ -106,8 +106,8 @@
              <h1>Dodaj zadanie</h1>
              <div class="modal__content__flex">
                  <input type="text" name="content"  class="input" id="content" placeholder="Treść">
-                <select name="difficulty" id="difficulty" class="input">
-                    <option disabled selected value="second" class="second">-- Wybierz poziom trudności --</option>
+                <select name="difficulty" id="difficulty" class="second" onchange="this.className = this.options[this.selectedIndex].value">
+                    <option value="second" class="second">Standrardowy</option>
                     <option value="easy" class="easy">Łatwy</option>
                     <option value="moderate" class="moderate">Umiarkowany</option>
                     <option value="hard" class="hard">Trudny</option>
@@ -122,15 +122,15 @@
             <h1>Zaktualizuj zadanie</h1>
             <div class="modal__content__flex">
                 <input type="text" name="contentChange"  class="input" id="contentChange" placeholder="Treść">
-                <select name="difficultyChange" id="difficultyChange" class="input">
-                    <option disabled selected value="second" class="second">-- Wybierz poziom trudności --</option>
+                <select name="difficultyChange" id="difficultyChange" class="input" onchange="this.className = this.options[this.selectedIndex].value">
+                    <option value="second" class="second">Standardowy</option>
                     <option value="easy" class="easy">Łatwy</option>
                     <option value="moderate" class="moderate">Umiarkowany</option>
                     <option value="hard" class="hard">Trudny</option>
                     <option value="veryHard" class="veryHard">Bardzo trudny</option>
                     <option value="other" class="other">Inne</option>
                 </select>
-                <input type="button" class="btn changeTaskId add" value="Zaktualizuj" onclick="changeTask()">
+                <input type="button" class="btn changeTaskId add" value="Zaktualizuj">
             </div>
             <hr>
             <h1>Usuń zadanie</h1>

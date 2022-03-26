@@ -41,6 +41,19 @@ $font: 'Bahnschrift', sans-serif;
             margin: 3vh 1vw 3vh 1vw;
         }
 
+        select{
+            color: $black;
+            font-family: $font;
+            font-size: 1em;
+            padding: 1vh 1vw;
+            border: 1px solid black;
+            border-radius: 10px;
+
+            &:disabled{
+                opacity: 0.5;
+            }
+        }
+
         .close{
             position: absolute;
             right: 3vw;

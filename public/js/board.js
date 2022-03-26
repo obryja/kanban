@@ -13,16 +13,16 @@ dataFetch('/get_board', {id: boardId})
        nameInput.value = data.name;
 
        for(i = 0; i < data.toDo.length; i++){
-            toDoList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.toDo[i].difficulty + "' id='toDo;" + /* data.toDo[i]._id */ i + "' ondblclick=\"displayModal('changeTask');changeTaskId('toDo;" + i /* data.toDo[i]._id */ + "'); getTaskById()\"><p>" + data.toDo[i].content + "</p></div>";
+            toDoList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.toDo[i].difficulty + "' id='toDo;" + i + ";" + data.toDo[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('toDo;" + i + ";" + data.toDo[i]._id + "'); getTaskById()\"><p>" + data.toDo[i].content + "</p></div>";
         }
         for(i = 0; i < data.buffer.length; i++){
-            bufferList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.buffer[i].difficulty + "' id='buffer;" + /* data.buffer[i]._id */ i + "' ondblclick=\"displayModal('changeTask');changeTaskId('buffer;" + i /* data.buffer[i]._id */ + "'); getTaskById()\"><p>" + data.buffer[i].content + "</p></div>";
+            bufferList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.buffer[i].difficulty + "' id='buffer;" + i + ";" + data.buffer[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('buffer;" + i + ";" + data.buffer[i]._id + "'); getTaskById()\"><p>" + data.buffer[i].content + "</p></div>";
         }
         for(i = 0; i < data.working.length; i++){
-            workingList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.working[i].difficulty + "' id='working;" + /* data.working[i]._id */ i + "' ondblclick=\"displayModal('changeTask');changeTaskId('working;" + i /* data.working[i]._id */ + "'); getTaskById()\"><p>" + data.working[i].content + "</p></div>";
+            workingList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.working[i].difficulty + "' id='working;" + i + ";" + data.working[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('working;" + i + ";" + data.working[i]._id + "'); getTaskById()\"><p>" + data.working[i].content + "</p></div>";
         }
         for(i = 0; i < data.done.length; i++){
-            doneList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.done[i].difficulty + "' id='done;" + /* data.done[i]._id */ i + "' ondblclick=\"displayModal('changeTask');changeTaskId('done;" + i /* data.done[i]._id */ + "'); getTaskById()\"><p>" + data.done[i].content + "</p></div>";
+            doneList.innerHTML += "<div draggable='true' class='board__stage__list__item dragTarget " + data.done[i].difficulty + "' id='done;" + i + ";" + data.done[i]._id + "' ondblclick=\"displayModal('changeTask');changeTaskId('done;" + i + ";" + data.done[i]._id + "'); getTaskById()\"><p>" + data.done[i].content + "</p></div>";
         }
 
        for(i = 0; i < data.users.length; i++){
@@ -179,9 +179,24 @@ function getTaskById(){
             const type = stage;
             const i = order;
 
-            if(type == 'toDo')  content.value = data.toDo[i].content, difficulty.value = data.toDo[i].difficulty
-            if(type == 'buffer')  content.value = data.buffer[i].content, difficulty.value = data.buffer[i].difficulty
-            if(type == 'working')  content.value = data.working[i].content, difficulty.value = data.working[i].difficulty
-            if(type == 'done')  content.value = data.done[i].content, difficulty.value = data.done[i].difficulty
+            if(type == 'toDo')  content.value = data.toDo[i].content, difficulty.value = data.toDo[i].difficulty, difficulty.className = data.toDo[i].difficulty
+            if(type == 'buffer')  content.value = data.buffer[i].content, difficulty.value = data.buffer[i].difficulty, difficulty.className = data.buffer[i].difficulty
+            if(type == 'working')  content.value = data.working[i].content, difficulty.value = data.working[i].difficulty, difficulty.className = data.working[i].difficulty
+            if(type == 'done')  content.value = data.done[i].content, difficulty.value = data.done[i].difficulty, difficulty.className = data.done[i].difficulty
         })  
 }
+
+var updateTask = document.getElementsByClassName('changeTaskId')[0];
+
+updateTask.addEventListener("click", e => {
+    e.preventDefault();
+    let id = document.getElementsByClassName('changeTaskId')[0].id;
+    let toSplit = id.split(";")
+    var stage = toSplit[0];
+    var taskId = toSplit[2];
+    var content = document.getElementById('contentChange').value;
+    var difficulty = document.getElementById('difficultyChange').value;
+
+    dataFetch('/update_task', {taskId: taskId, type: stage, content: content, difficulty: difficulty});
+    location.reload();
+})
