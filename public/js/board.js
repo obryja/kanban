@@ -8,7 +8,7 @@ var doneList = document.getElementsByClassName('doneList')[0];
 
 /*************** display data ***************/
 
-dataFetch('/get_board', {id: boardId})
+dataFetch('/get_board', {"id": boardId})
 .then(data => {
     nameInput.value = data.name;
 
@@ -31,7 +31,7 @@ dataFetch('/get_board', {id: boardId})
     }
 
     for(i = 0; i < data.users.length; i++){
-        dataFetch('/get_user_by_id', {id: data.users[i]})
+        dataFetch('/get_user_by_id', {"id": data.users[i]})
             .then(data => {
                 usersList.innerHTML += "<div class='modal__content__list__item'><h3>" + data.username + "</h3></div>";
             });
@@ -94,13 +94,13 @@ window.onclick = function(event) {
 
 function addUser(){
     var username = document.getElementById('username').value;
-    dataFetch('/add_user_to_board', {username: username, id: boardId})
+    dataFetch('/add_user_to_board', {"username": username, "id": boardId})
         .then(res => {
             if(!res.ok) changeOnAdd()
         }, reason => {
             document.getElementsByClassName('modal__content__form__error')[0].innerHTML = "Nie znaleziono takiej nazwy użytkownika"
             document.getElementById('username').style.borderColor = 'red' 
-        })
+        });
 }
 
 function changeOnAdd(){
@@ -109,12 +109,12 @@ function changeOnAdd(){
     document.getElementsByClassName('modal__content__form__error')[0].innerHTML = ""
     document.getElementById('username').style.borderColor = 'black' 
 
-    dataFetch('/get_board', {id: boardId})
+    dataFetch('/get_board', {"id": boardId})
     .then(data => {
        nameInput.value = data.name;
 
        for(i = 0; i < data.users.length; i++){
-            dataFetch('/get_user_by_id', {id: data.users[i]})
+            dataFetch('/get_user_by_id', {"id": data.users[i]})
                 .then(data => {
                     usersList.innerHTML += "<div class='modal__content__list__item'><h3>" + data.username + "</h3></div>";
                 })
@@ -135,31 +135,31 @@ function addTask(){
     var type = document.getElementsByClassName('changeId')[0].id;
 
     if(type == 'toDo'){
-        dataFetch('/update_board', {id: boardId, toDo: {
+        dataFetch('/update_board', {"id": boardId, "toDo": {
             "content": content,
             "difficulty": difficulty,
-        }});
+        }}).then();
         location.reload();
     }
     if(type == 'buffer'){
-        dataFetch('/update_board', {id: boardId, buffer: {
+        dataFetch('/update_board', {"id": boardId, "buffer": {
             "content": content,
             "difficulty": difficulty,
-        }});
+        }}).then();
         location.reload();
     }
     if(type == 'working'){
-        dataFetch('/update_board', {id: boardId, working: {
+        dataFetch('/update_board', {"id": boardId, "working": {
             "content": content,
             "difficulty": difficulty,
-        }});
+        }}).then();
         location.reload();
     }
     if(type == 'done'){
-        dataFetch('/update_board', {id: boardId, done: {
+        dataFetch('/update_board', {"id": boardId, "done": {
             "content": content,
             "difficulty": difficulty,
-        }});
+        }}).then();
         location.reload();
     }
 }
@@ -177,12 +177,12 @@ function getTaskById(){
     var taskId = toSplit[2];
     var content = document.getElementById('contentChange');
     var difficulty = document.getElementById('difficultyChange');
+
+    console.log(taskId);
     console.log(stage)
 
-    dataFetch('/get_task', {id: taskId, type: stage})
-        .then(data => {
-            console.log(data)
-            
+    dataFetch('/get_task', {"id": taskId, "type": stage})
+        .then(data => {      
             content.value = Object.values(data)[1][0].content
             difficulty.value = Object.values(data)[1][0].difficulty
             difficulty.className = Object.values(data)[1][0].difficulty
@@ -200,7 +200,7 @@ updateTask.addEventListener("click", e => {
     var content = document.getElementById('contentChange').value;
     var difficulty = document.getElementById('difficultyChange').value;
 
-    dataFetch('/update_task', {taskId: taskId, type: stage, content: content, difficulty: difficulty});
+    dataFetch('/update_task', {"taskId": taskId, "type": stage, "content": content, "difficulty": difficulty});
     location.reload();
 })
 
@@ -219,6 +219,6 @@ deleteTask.addEventListener("click", e => {
     var stage = toSplit[0];
     var taskId = toSplit[2];
 
-    dataFetch('/delete_task', {taskId: taskId, type: stage});
+    dataFetch('/delete_task', {"taskId": taskId, "type": stage}).then();
     location.reload();
 })

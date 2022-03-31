@@ -105,22 +105,26 @@ getTask = async(req, res) => {
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"toDo._id": req.body.id}, 'toDo.$').lean()
             ))
+            console.log('toDo')
         }   
         if(req.body.type == 'buffer'){
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"buffer._id": req.body.id}, 'buffer.$').lean()
             ))
+            console.log('buffer')
         }  
         if(req.body.type == 'working'){
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"working._id": req.body.id}, 'working.$').lean()
             ))
+            console.log('working')
         }  
 
         if(req.body.type == 'done'){
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"done._id": req.body.id}, 'done.$').lean()
             ))
+            console.log('done')
         }  
     } catch(err){
         res.sendStatus(500)
@@ -213,6 +217,7 @@ deleteTask = async (req, res) => {
                 {"users._id": req.body.taskId},
                 {$pull : {users: {_id: req.body.taskId}}}
             )
+            res.status(202).send(JSON.stringify(board))
         } 
         
         if(req.body.type == 'toDo'){
@@ -220,24 +225,28 @@ deleteTask = async (req, res) => {
                 {"toDo._id": req.body.taskId},
                 {$pull : {toDo: {_id: req.body.taskId}}}
             )
+            res.status(202).send(JSON.stringify(board))
         }   
         if(req.body.type == 'buffer'){
             const board = await Board.updateOne(
                 {"buffer._id": req.body.taskId},
                 {$pull : {buffer: {_id: req.body.taskId}}}
             )
+            res.status(202).send(JSON.stringify(board))
         }  
         if(req.body.type == 'working'){
             const board = await Board.updateOne(
                 {"working._id": req.body.taskId},
                 {$pull : {working: {_id: req.body.taskId}}}
             )
+            res.status(202).send(JSON.stringify(board))
         }  
         if(req.body.type == 'done'){
             const board = await Board.updateOne(
                 {"done._id": req.body.taskId},
                 {$pull : {done: {_id: req.body.taskId}}}
             )
+            res.status(202).send(JSON.stringify(board))
         }  
     } catch(err) {
         res.sendStatus(500)

@@ -311,6 +311,13 @@ body{
             }
         }
     }
+
+    &__delete{
+        position: fixed;
+        bottom: 3vh;
+        right: 3vw;
+        height: 20vh
+    }
 }
 
 
@@ -341,5 +348,10 @@ body{
         &__item{
             width: 80%;
         }
+    }
+
+    .board__delete{
+        position: relative;
+        width: 50vw;
     }
 }
