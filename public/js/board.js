@@ -178,9 +178,6 @@ function getTaskById(){
     var content = document.getElementById('contentChange');
     var difficulty = document.getElementById('difficultyChange');
 
-    console.log(taskId);
-    console.log(stage)
-
     dataFetch('/get_task', {"id": taskId, "type": stage})
         .then(data => {      
             content.value = Object.values(data)[1][0].content

@@ -105,26 +105,22 @@ getTask = async(req, res) => {
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"toDo._id": req.body.id}, 'toDo.$').lean()
             ))
-            console.log('toDo')
         }   
         if(req.body.type == 'buffer'){
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"buffer._id": req.body.id}, 'buffer.$').lean()
             ))
-            console.log('buffer')
         }  
         if(req.body.type == 'working'){
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"working._id": req.body.id}, 'working.$').lean()
             ))
-            console.log('working')
         }  
 
         if(req.body.type == 'done'){
             res.status(202).send(JSON.stringify(
                 await Board.findOne({"done._id": req.body.id}, 'done.$').lean()
             ))
-            console.log('done')
         }  
     } catch(err){
         res.sendStatus(500)

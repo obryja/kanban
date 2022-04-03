@@ -1,0 +1,145 @@
+[{
+  "_id": {
+    "$oid": "62498f5a40f2bea19ff75745"
+  },
+  "name": "Personal",
+  "users": [
+    {
+      "$oid": "6238b0efa0cf45e76dc07d06"
+    }
+  ],
+  "toDo": [
+    {
+      "content": "Buy a new camera",
+      "difficulty": "moderate",
+      "_id": {
+        "$oid": "62498f9240f2bea19ff75779"
+      }
+    }
+  ],
+  "buffer": [
+    {
+      "content": "Go to vet with my cat",
+      "difficulty": "veryHard",
+      "_id": {
+        "$oid": "6249900240f2bea19ff757a1"
+      }
+    },
+    {
+      "content": "Visit my grandparents",
+      "difficulty": "other",
+      "_id": {
+        "$oid": "6249901a40f2bea19ff757a9"
+      }
+    },
+    {
+      "content": "Buy new shoes",
+      "difficulty": "hard",
+      "_id": {
+        "$oid": "62498fee40f2bea19ff75799"
+      }
+    }
+  ],
+  "working": [
+    {
+      "content": "Plan holiday trip",
+      "difficulty": "easy",
+      "_id": {
+        "$oid": "62498faf40f2bea19ff75789"
+      }
+    }
+  ],
+  "done": [
+    {
+      "content": "Sell the couch",
+      "difficulty": "veryHard",
+      "_id": {
+        "$oid": "62498fa040f2bea19ff75781"
+      }
+    },
+    {
+      "content": "Buy present for Jim",
+      "difficulty": "second",
+      "_id": {
+        "$oid": "62498fce40f2bea19ff75791"
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6249905740f2bea19ff757da"
+  },
+  "name": "Home",
+  "users": [
+    {
+      "$oid": "6238b0efa0cf45e76dc07d06"
+    },
+    {
+      "$oid": "6238b11fa0cf45e76dc07d0f"
+    }
+  ],
+  "toDo": [
+    {
+      "content": "Do the washing up",
+      "difficulty": "veryHard",
+      "_id": {
+        "$oid": "6249907140f2bea19ff757ec"
+      }
+    },
+    {
+      "content": "clean oven",
+      "difficulty": "hard",
+      "_id": {
+        "$oid": "624991bb40f2bea19ff75832"
+      }
+    },
+    {
+      "content": "clean windows",
+      "difficulty": "hard",
+      "_id": {
+        "$oid": "624991cd40f2bea19ff7583b"
+      }
+    }
+  ],
+  "buffer": [
+    {
+      "content": "Invite friends for a weekend",
+      "difficulty": "second",
+      "_id": {
+        "$oid": "6249907c40f2bea19ff757f5"
+      }
+    },
+    {
+      "content": "vaccum",
+      "difficulty": "moderate",
+      "_id": {
+        "$oid": "6249915e40f2bea19ff75829"
+      }
+    }
+  ],
+  "working": [
+    {
+      "content": "create master shopping list",
+      "difficulty": "moderate",
+      "_id": {
+        "$oid": "6249909140f2bea19ff75806"
+      }
+    },
+    {
+      "content": "dust",
+      "difficulty": "easy",
+      "_id": {
+        "$oid": "6249915840f2bea19ff75820"
+      }
+    }
+  ],
+  "done": [
+    {
+      "content": "water plants",
+      "difficulty": "easy",
+      "_id": {
+        "$oid": "6249911940f2bea19ff75817"
+      }
+    }
+  ]
+}]

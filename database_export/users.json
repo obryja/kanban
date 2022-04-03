@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "6238b0efa0cf45e76dc07d06"
+  },
+  "username": "ola",
+  "password": "$2a$10$OxgfuWXbIYxJZi1krxZPwe8mctbTn2pHGe/YodcOxCEDdyKixZCJu"
+},{
+  "_id": {
+    "$oid": "6238b11fa0cf45e76dc07d0f"
+  },
+  "username": "user",
+  "password": "$2a$10$igXVzdALB9b8S9NIcjw7b.A9BZgpTWNQyLwXhlMtT6wUmwrYvcYPm"
+}]
